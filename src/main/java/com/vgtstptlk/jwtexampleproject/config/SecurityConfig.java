@@ -10,7 +10,7 @@ import org.springframework.security.crypto.password.PasswordEncoder;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
-    private 
+
 
     @Bean
     public PasswordEncoder passwordEncoder(){
@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/test/security/user/**").hasRole("ADMIN")
                 .antMatchers("/api/auth", "/api/register").permitAll()
                 .and()
-                .addFilterBefore()
+                .addFilterBefore();
 
     }
 }
