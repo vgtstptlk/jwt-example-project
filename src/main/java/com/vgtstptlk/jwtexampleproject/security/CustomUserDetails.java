@@ -12,7 +12,7 @@ public class CustomUserDetails implements UserDetails {
 
     private String username;
     private String password;
-    private Collection<? super GrantedAuthority> grantedAuthority;
+    private Collection<? extends GrantedAuthority> grantedAuthority;
 
     public static CustomUserDetails fromUserToCustomUserDetails(User user){
         CustomUserDetails customUserDetails = new CustomUserDetails();

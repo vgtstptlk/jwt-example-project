@@ -2,6 +2,7 @@ package com.vgtstptlk.jwtexampleproject.service;
 
 import com.vgtstptlk.jwtexampleproject.domain.User;
 import com.vgtstptlk.jwtexampleproject.security.CustomUserDetails;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -14,12 +15,17 @@ public class CustomUserDetailsService implements UserDetailsService {
     private UserService userService;
 
     @Override
-    public UserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
+    public CustomUserDetails loadUserByUsername(String s) throws UsernameNotFoundException {
         Optional<User> optionalUser = userService.findByUsername(s);
         optionalUser.orElseThrow(
                 () -> new UsernameNotFoundException(s)
         );
 
         return CustomUserDetails.fromUserToCustomUserDetails(optionalUser.get());
+    }
+
+    @Autowired
+    public CustomUserDetailsService(UserService userService) {
+        this.userService = userService;
     }
 }
