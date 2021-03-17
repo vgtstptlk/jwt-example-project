@@ -6,7 +6,7 @@ import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 
-@Entity
+@Entity(name = "user_table")
 public class User {
 
     @GeneratedValue(strategy = GenerationType.TABLE)
