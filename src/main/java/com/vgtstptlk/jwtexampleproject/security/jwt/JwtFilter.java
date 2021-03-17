@@ -4,6 +4,7 @@ import com.vgtstptlk.jwtexampleproject.security.CustomUserDetails;
 import com.vgtstptlk.jwtexampleproject.service.CustomUserDetailsService;
 import lombok.extern.java.Log;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.context.annotation.Bean;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Component;
@@ -14,12 +15,14 @@ import java.io.IOException;
 
 import static org.springframework.util.StringUtils.hasText;
 
-@Component
+@Component("jwtFilter")
 @Log
 public class JwtFilter extends GenericFilter {
     public static final String AUTHORIZATION = "Authorization";
 
+    @Autowired
     private JwtProvider jwtProvider;
+    @Autowired
     private CustomUserDetailsService customUserDetailsService;
 
     @Override
@@ -45,9 +48,4 @@ public class JwtFilter extends GenericFilter {
         return null;
     }
 
-    @Autowired
-    public JwtFilter(JwtProvider jwtProvider, CustomUserDetailsService customUserDetailsService) {
-        this.jwtProvider = jwtProvider;
-        this.customUserDetailsService = customUserDetailsService;
-    }
 }

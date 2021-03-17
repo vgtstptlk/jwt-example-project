@@ -1,5 +1,8 @@
 package com.vgtstptlk.jwtexampleproject.config;
 
+import com.vgtstptlk.jwtexampleproject.security.jwt.JwtFilter;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
@@ -7,9 +10,13 @@ import org.springframework.security.config.annotation.web.configuration.WebSecur
 import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 
 @Configuration
 public class SecurityConfig extends WebSecurityConfigurerAdapter {
+
+    @Autowired
+    private JwtFilter jwtFilter;
 
 
     @Bean
@@ -29,7 +36,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
                 .antMatchers("/api/test/security/user/**").hasRole("ADMIN")
                 .antMatchers("/api/auth", "/api/register").permitAll()
                 .and()
-                .addFilterBefore();
-
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
     }
+
 }

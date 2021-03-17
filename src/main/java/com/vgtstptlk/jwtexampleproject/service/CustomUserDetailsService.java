@@ -12,6 +12,8 @@ import java.util.Optional;
 
 @Component
 public class CustomUserDetailsService implements UserDetailsService {
+
+    @Autowired
     private UserService userService;
 
     @Override
@@ -24,8 +26,4 @@ public class CustomUserDetailsService implements UserDetailsService {
         return CustomUserDetails.fromUserToCustomUserDetails(optionalUser.get());
     }
 
-    @Autowired
-    public CustomUserDetailsService(UserService userService) {
-        this.userService = userService;
-    }
 }

@@ -1,5 +1,7 @@
 package com.vgtstptlk.jwtexampleproject.domain;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.*;
 import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
@@ -19,6 +21,7 @@ public class User {
     @ManyToOne
     private Role role;
     @NotBlank
+    @JsonIgnore
     private String password;
 
     public User() {
